@@ -1,0 +1,32 @@
+-- 公共快捷键（两种环境都生效）
+local function map(mode, lhs, rhs, opts)
+  opts = opts or {}
+  opts.silent = opts.silent ~= false
+  vim.keymap.set(mode, lhs, rhs, opts)
+end
+
+vim.g.mapleader = ' '
+
+-- 公共快捷键（两种环境都生效）
+map('n', '<ESC>', '<cmd>nohlsearch<CR>', { desc = '清除搜索高亮' })
+
+-- 仅独立模式生效的快捷键（如分屏操作，VS Code用自身分屏）
+if not vim.g.vscode then
+  map('n', '<leader>v', ':vsp<CR>', { desc = '垂直分屏'})
+  map('n', '<leader>h', ':sp<CR>', { desc = '水平分屏'})
+  map('n', '<leader>c', ':close<CR>', { desc = '关闭当前分屏'})
+
+  -- flash.nvim插件快捷键（仅独立模式生效）
+  map('n', 'S', function() require('flash').treesitter() end, { desc = 'Treesitter 跳转' })
+else
+  -- flash.nvim插件快捷键（仅独立模式生效）
+  map('n', 's', function() require('flash').jump() end, { desc = 'Flash 跳转' })
+  -- 代码折叠快捷键（兼容VS Code行为）
+  map('n', 'zc', function() vim.fn.VSCodeNotify('editor.fold') end, { desc = '折叠当前区域' })
+  map('n', 'zo', function() vim.fn.VSCodeNotify('editor.unfold') end, { desc = '展开当前区域' })
+  map('n', 'za', function() vim.fn.VSCodeNotify('editor.toggleFold') end, { desc = '切换折叠状态' })
+  map('n', 'zR', function() vim.fn.VSCodeNotify('editor.unfoldAll') end, { desc = '展开所有' })
+  map('n', 'zM', function() vim.fn.VSCodeNotify('editor.foldAll') end, { desc = '折叠所有' })
+  map('n', 'zC', function() vim.fn.VSCodeNotify('editor.foldRecursively') end, { desc = '折叠当前及子区域' })
+  map('n', 'zO', function() vim.fn.VSCodeNotify('editor.unfoldRecursively') end, { desc = '展开当前及子区域' })
+end
