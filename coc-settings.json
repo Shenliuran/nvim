@@ -1,0 +1,24 @@
+{
+  "suggest.enablePreselect": true,
+  "suggest.maxCompleteItemCount": 50,
+  "suggest.minTriggerInputLength": 1,
+
+  "prettier.enable": true,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "prettier.printWidth": 100,
+
+  "pyright.inlayHints.variableTypes": true,
+  "python.formatting.provider": "black",
+
+  "diagnostic.virtualText": true,
+  "diagnostic.virtualTextPrefix": "● ",
+  "diagnostic.checkCurrentLine": true,
+
+  "snippets.ultisnips.enable": true,
+  "snippets.textmateSnippetsRoots": [
+    "~/.config/nvim/snippets"
+  ],
+  "snippets.ultisnips.pythonPrompt": false
+}
+
