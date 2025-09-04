@@ -19,6 +19,9 @@ if not vim.g.vscode then
   -- flash.nvim插件快捷键（仅独立模式生效）
   map('n', 'S', function() require('flash').treesitter() end, { desc = 'Treesitter 跳转' })
 else
+  map('n', '<leader>v', function() vim.fn.VSCodeNotify('workbench.action.splitEditorRight') end, { desc = '垂直分屏'})
+  map('n', '<leader>h', function() vim.fn.VSCodeNotify('workbench.action.splitEditorDown') end, { desc = '水平分屏'})
+  map('n', '<leader>c', function() vim.fn.VSCodeNotify('workbench.action.closeActiveEditor') end, { desc = '关闭当前分屏'})
   -- flash.nvim插件快捷键（仅独立模式生效）
   map('n', 's', function() require('flash').jump() end, { desc = 'Flash 跳转' })
   -- 代码折叠快捷键（兼容VS Code行为）
