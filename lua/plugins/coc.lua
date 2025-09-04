@@ -14,7 +14,7 @@ return {
           "coc-snippets",     -- 代码片段
           "coc-prettier",     -- 格式化
         }
-        vim.g.coo_disable_diagnostics = true
+        vim.g.coc_disable_diagnostics = true
         vim.g.coc_disable_lsp = true
         vim.opt.completeopt = { "menuone", "noselect" }
       else
@@ -33,7 +33,7 @@ return {
         }
         
         -- 禁用 coc 的诊断和补全，避免与 VS Code LSP 冲突
-        vim.g.coc_disable_diagnostic = true
+        vim.g.coc_disable_diagnostics = true
 
         -- 键盘映射（遵循 LazyVim 习惯）
         local keymap = vim.keymap
