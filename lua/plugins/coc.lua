@@ -2,6 +2,7 @@ return {
   {
     "neoclide/coc.nvim",
     branch = "release",
+    enabled = not vim.g.vscode,
     -- 依赖配置（如果需要）
     dependencies = {
       -- 可选：添加 coc 相关的辅助插件
@@ -17,6 +18,17 @@ return {
         vim.g.coc_disable_diagnostics = true
         vim.g.coc_disable_lsp = true
         vim.opt.completeopt = { "menuone", "noselect" }
+        vim.g.coc_eable_hover = false
+        vim.g.coc_show_signature_help = false
+        vim.g.coc_show_documentation = false
+        vim.g.coc_float_config = {
+          border = "rounded",
+          focusable = false,
+          max_width = 80,
+          max_height = 20,
+          wrap = true,
+          close_events = { "BufLeave", "InsertEnter" }
+        }
       else
         -- 全局扩展（自动安装）
         vim.g.coc_global_extensions = {
