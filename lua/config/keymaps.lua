@@ -32,4 +32,12 @@ else
   map('n', 'zM', function() vim.fn.VSCodeNotify('editor.foldAll') end, { desc = '折叠所有' })
   map('n', 'zC', function() vim.fn.VSCodeNotify('editor.foldRecursively') end, { desc = '折叠当前及子区域' })
   map('n', 'zO', function() vim.fn.VSCodeNotify('editor.unfoldRecursively') end, { desc = '展开当前及子区域' })
+  map('n', '<leader>f', function() vim.fn.VSCodeNotify('workbench.view.search') end, { desc = 'VS Code 搜索' })
+  map('n', '<leader>t', function() vim.fn.VSCodeNotify('workbench.action.terminal.toggleTerminal') end, { desc = 'VS Code 终端' })
+  map('n', '<leader>p', function() vim.fn.VSCodeNotify('workbench.action.showCommands') end, { desc = 'VS Code 命令面板' })
+  map('n', '<leader>e', function() vim.fn.VSCodeNotify('workbench.view.explorer') end, { desc = 'VS Code 文件资源管理器' })
+  map('n', '<leader>d', function() vim.fn.VSCodeNotify('workbench.view.debug') end, { desc = 'VS Code 调试视图' })
+  map('n', '<leader>g', function() vim.fn.VSCodeNotify('workbench.view.scm') end, { desc = 'VS Code 源代码管理' })
+  map('n', '<leader>u', function() vim.fn.VSCodeNotify('workbench.action.output.toggleOutput') end, { desc = 'VS Code 源代码管理' })
+  map('n', '<leader>y', function() vim.fn.VSCodeNotify('workbench.debug.action.toggleRepl') end, { desc = 'VS Code 调试控制台' })
 end
