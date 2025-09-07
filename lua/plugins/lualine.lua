@@ -13,15 +13,15 @@ return {
     -- 移除LazyVim的require逻辑，使用标准require
     local icons = {
       diagnostics = {
-        Error = " ⛔",
-        Warn = "❗ ",
-        Info = "🔔 ",
-        Hint = "📃 ",
+        Error = " ⛔",
+        Warn = " ❗ ",
+        Info = " 🔔 ",
+        Hint = " 📃 ",
       },
       git = {
-        added = "➕ ",
+        added = " ➕ ",
         modified = " ❓ ",
-        removed = "🚫 ",
+        removed = " 🚫 ",
       },
     }
 
