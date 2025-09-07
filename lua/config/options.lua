@@ -30,6 +30,17 @@ vim.opt.numberwidth = 4       -- 行号与内容之间的间距
 vim.opt.cursorline = true     -- 光标所在行高亮
 
 
+-- 控制缩进的空格数量
+vim.opt.shiftwidth = 4        -- 自动缩进时的空格数（如 {} 内的缩进）
+vim.opt.tabstop = 4           -- 一个 Tab 显示为多少个空格（即使使用原生 Tab 也生效）
+vim.opt.softtabstop = 4       -- 按退格键时删除的空格数（与 tabstop 保持一致即可）
+
+
+-- 自动缩进相关
+vim.opt.autoindent = true	  -- 新行自动继承上一行的缩进
+vim.opt.smartindent = true	  -- 智能缩进（如代码块自动增加缩进）
+
+
 ------------------------------------------------- highlight -------------------------------------------------
 vim.api.nvim_set_hl(0, 'Search', { bg = '#4a5568', fg = '#f6f6f6', bold = true })   -- 自定义搜索结果高亮
 vim.api.nvim_set_hl(0, 'Function', { fg = '#b5bd68', italic = true })                 -- 自定义函数名高亮
