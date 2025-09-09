@@ -25,6 +25,13 @@ return {
       -- 启用图标（依赖 nvim-web-devicons）
       enable_git_status = true,
       enable_diagnostics = true, -- 显示 LSP 诊断信息
+      window = {
+        border = "rounded",
+        mappings = {
+          ["l"] = "open",
+          ["h"] = "close_node",
+        }
+      }
     })
   end,
 }
