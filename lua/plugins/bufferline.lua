@@ -15,18 +15,26 @@ return {
   },
   opts = {
     options = {
-      -- stylua: ignore
-      close_command = function(n) Snacks.bufdelete(n) end,
-      -- stylua: ignore
-      right_mouse_command = function(n) Snacks.bufdelete(n) end,
+      -- 替换 Snacks.bufdelete 为通用删除命令（如果 Snacks 未安装）
+      close_command = function(n) require("bufdelete").bufdelete(n, false) end,
+      right_mouse_command = function(n) require("bufdelete").bufdelete(n, false) end,
+      
       diagnostics = "nvim_lsp",
       always_show_bufferline = false,
+      
+      -- 手动定义诊断图标（替代 LazyVim.config.icons.diagnostics）
       diagnostics_indicator = function(_, _, diag)
-        local icons = LazyVim.config.icons.diagnostics
+        local icons = {
+          Error = "❌ ",
+          Warn = "⚠️ ",
+          Info = "🔔 ",
+          Hint = "💡 ",
+        }
         local ret = (diag.error and icons.Error .. diag.error .. " " or "")
           .. (diag.warning and icons.Warn .. diag.warning or "")
         return vim.trim(ret)
       end,
+      
       offsets = {
         {
           filetype = "neo-tree",
@@ -38,19 +46,24 @@ return {
           filetype = "snacks_layout_box",
         },
       },
-      ---@param opts bufferline.IconFetcherOpts
+      
+      -- 用 nvim-web-devicons 获取图标（替代 LazyVim.config.icons.ft）
       get_element_icon = function(opts)
-        return LazyVim.config.icons.ft[opts.filetype]
+        local devicons = require("nvim-web-devicons")
+        local icon, _ = devicons.get_icon_by_filetype(opts.filetype)
+        return icon or "? " -- 未找到时用默认图标
       end,
     },
   },
   config = function(_, opts)
     require("bufferline").setup(opts)
-    -- Fix bufferline when restoring a session
+    
+    -- 修复会话恢复时的 bufferline 显示问题（修正笔误）
     vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
       callback = function()
         vim.schedule(function()
-          pcall(nvim_bufferline)
+          -- 刷新 bufferline 状态（原 nvim_bufferline 是笔误）
+          pcall(require("bufferline").setup, opts)
         end)
       end,
     })
