@@ -1,6 +1,11 @@
 return {
   "akinsho/bufferline.nvim",
   event = "VeryLazy",
+  -- 补充依赖：确保 bufdelete（关闭缓冲区）和 web-devicons（图标）存在
+  dependencies = {
+    "famiu/bufdelete.nvim",     -- 用于缓冲区关闭逻辑
+    "nvim-tree/nvim-web-devicons", -- 提供文件类型图标
+  },
   keys = {
     { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Pin" },
     { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete Non-Pinned Buffers" },
@@ -15,14 +20,15 @@ return {
   },
   opts = {
     options = {
-      -- 替换 Snacks.bufdelete 为通用删除命令（如果 Snacks 未安装）
+      -- 缓冲区关闭命令：依赖 bufdelete.nvim
       close_command = function(n) require("bufdelete").bufdelete(n, false) end,
       right_mouse_command = function(n) require("bufdelete").bufdelete(n, false) end,
       
-      diagnostics = "nvim_lsp",
-      always_show_bufferline = false,
+      diagnostics = "nvim_lsp",      -- 启用 LSP 诊断
+      always_show_bufferline = false,-- 无缓冲区时隐藏 bufferline
+      diagnostics_update_in_insert = false,
       
-      -- 手动定义诊断图标（替代 LazyVim.config.icons.diagnostics）
+      -- 自定义诊断图标（替代原 LazyVim 依赖）
       diagnostics_indicator = function(_, _, diag)
         local icons = {
           Error = "❌ ",
@@ -35,6 +41,7 @@ return {
         return vim.trim(ret)
       end,
       
+      -- 侧边栏偏移（如 neo-tree、snacks 布局）
       offsets = {
         {
           filetype = "neo-tree",
@@ -47,23 +54,28 @@ return {
         },
       },
       
-      -- 用 nvim-web-devicons 获取图标（替代 LazyVim.config.icons.ft）
+      -- 完善图标获取逻辑：返回「图标 + 高亮组」（符合 bufferline 预期）
       get_element_icon = function(opts)
         local devicons = require("nvim-web-devicons")
-        local icon, _ = devicons.get_icon_by_filetype(opts.filetype)
-        return icon or "? " -- 未找到时用默认图标
+        local icon, hl_group = devicons.get_icon_by_filetype(opts.filetype)
+        return icon or "?", hl_group -- 缺失时用 "?" + 默认高亮
       end,
     },
   },
   config = function(_, opts)
+    -- 先配置 Neovim 原生诊断（替代原 bufferline 弃用选项）
+    vim.diagnostic.config({
+      update_in_insert = true, -- 插入模式下更新诊断
+    })
+    
+    -- 初始化 bufferline
     require("bufferline").setup(opts)
     
-    -- 修复会话恢复时的 bufferline 显示问题（修正笔误）
+    -- 自动命令：缓冲区增减时刷新 bufferline（防止数据异常）
     vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
       callback = function()
         vim.schedule(function()
-          -- 刷新 bufferline 状态（原 nvim_bufferline 是笔误）
-          pcall(require("bufferline").setup, opts)
+          pcall(require("bufferline").setup, opts) -- pcall 防止错误中断流程
         end)
       end,
     })
