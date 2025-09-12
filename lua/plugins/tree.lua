@@ -29,7 +29,7 @@ return {
         border = "rounded",
         mappings = {
           ["l"] = "open",
-          ["h"] = "close_node",
+          ["h"] = "close",
         }
       }
     })
