@@ -21,5 +21,9 @@ return {
         }
       }
     })
+
+    local builtin = require('telescope.builtin')
+    vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = "实时文本搜索" })
+    vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = "查找文件" })
   end,
 }
