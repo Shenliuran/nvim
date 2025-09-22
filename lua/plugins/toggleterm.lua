@@ -12,12 +12,12 @@ return {
       start_in_insert = true,
       insert_mappings = true,
       persist_size = true,
-      direction = "horizontal", -- 默认为水平分屏（可改为 vertical/float）
+      direction = "float", -- 默认为水平分屏（可改为 vertical/float）
       close_on_exit = true,
       shell = vim.o.shell,
       float_opts = {
         border = "curved", -- 浮动窗口边框
-        winblend = 0,
+        winblend = 20,
       },
     })
   end,
