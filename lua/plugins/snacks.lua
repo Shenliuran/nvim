@@ -26,14 +26,14 @@ return {
     -- 2. 图标函数（保持逻辑，增强容错）
     local function get_dashboard_icon(func)
       local icon_map = {
-        files = (devicons.get_icon("file", nil, { default = true }) or "📄") .. "📂 ",
-        newfile = (devicons.get_icon("file", nil, { default = true }) or "📄") .. "➕ ",
-        search = (devicons.get_icon("file", nil, { default = true }) or "📄") .. "🔍 ",
-        history = (devicons.get_icon("history", nil, { default = true }) or "📜") .. "📃 ",
-        config = (devicons.get_icon("config", nil, { default = true }) or "⚙️") .. "🛠 ",
-        session = (devicons.get_icon("file", nil, { default = true }) or "📄") .. "💬 ",
-        lazy = (devicons.get_icon("file", nil, { default = true }) or "📄") .. "💤 ",
-        quit = (devicons.get_icon("file", nil, { default = true }) or "📄") .. "⭕ ",
+        files = (devicons.get_icon("add", nil, { default = true }) or "📂 "),
+        newfile = (devicons.get_icon("file", nil, { default = true }) or "➕ "),
+        search = (devicons.get_icon("search", nil, { default = true }) or "🔍" ),
+        history = (devicons.get_icon("history", nil, { default = true }) or "📜"),
+        config = (devicons.get_icon("config", nil, { default = true }) or "⚙️"),
+        session = (devicons.get_icon("session", nil, { default = true }) or "💬 "),
+        lazy = (devicons.get_icon("lazy", nil, { default = true }) or "💤 "),
+        quit = (devicons.get_icon("quit", nil, { default = true }) or "⭕" ),
       }
       return icon_map[func] or "? "
     end
