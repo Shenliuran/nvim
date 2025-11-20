@@ -34,19 +34,30 @@ vim.opt.cursorline = true     -- 光标所在行高亮
 vim.opt.autoindent = true	  -- 新行自动继承上一行的缩进
 vim.opt.smartindent = true	  -- 智能缩进（如代码块自动增加缩进）
 
--- 设置默认 shell 为 PowerShell（根据实际路径修改）
--- vim.opt.shell = 'C:\\Program Files\\PowerShell\\7\\pwsh.exe'  -- PowerShell 7+op
--- 若使用 Windows PowerShell，替换为：
-vim.opt.shell = 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe'
-
--- 设置 shell 启动参数（关键：避免多余输出，确保 Neovim 终端兼容）
-vim.opt.shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
-
--- 配置输出重定向（确保 Neovim 能正确捕获命令输出）
-vim.opt.shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-vim.opt.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-vim.opt.shellquote = ''
-vim.opt.shellxquote = ''
+-- 根据操作系统设置默认 shell
+if vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1 then
+  -- Windows 系统使用 PowerShell
+  if vim.fn.executable('pwsh.exe') == 1 then
+    -- 如果安装了 PowerShell Core (pwsh)
+    vim.opt.shell = 'pwsh.exe'
+  elseif vim.fn.executable('powershell.exe') == 1 then
+    -- 否则使用 Windows PowerShell
+    vim.opt.shell = 'powershell.exe'
+  end
+  vim.opt.shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+  vim.opt.shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+  vim.opt.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+  vim.opt.shellquote = ''
+  vim.opt.shellxquote = ''
+else
+  -- 非 Windows 系统使用 bash
+  vim.opt.shell = 'bash'
+  vim.opt.shellcmdflag = '-c'
+  vim.opt.shellredir = '>%s 2>&1'
+  vim.opt.shellpipe = '2>&1| tee %s'
+  vim.opt.shellquote = ''
+  vim.opt.shellxquote = ''
+end
 
 ------------------------------------------------- highlight -------------------------------------------------
 vim.api.nvim_set_hl(0, 'Search', { bg = '#4a5568', fg = '#f6f6f6', bold = true })   -- 自定义搜索结果高亮
