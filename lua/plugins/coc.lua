@@ -46,6 +46,8 @@ return {
         
         -- 禁用 coc 的诊断和补全，避免与 VS Code LSP 冲突
         vim.g.coc_disable_diagnostics = true
+        vim.g.coc_preselect = true
+        vim.g.coc_preselect_mode = "enable"
 
         -- 键盘映射（遵循 LazyVim 习惯）
         local keymap = vim.keymap
@@ -70,6 +72,23 @@ return {
         
         -- 格式化代码
         keymap.set("n", "<leader>cf", "<Plug>(coc-format)", { silent = true, desc = "Format code" })
+
+        -- 在 coc.lua 中添加按键映射配置
+        keymap.set("i", "<Tab>", function()
+          if vim.fn["coc#pum#visible"]() == 1 then
+            return vim.fn["coc#pum#confirm"]()
+          else
+            return "<Tab>"
+          end
+        end, { silent = true, expr = true })
+
+        keymap.set("i", "<S-Tab>", function()
+          if vim.fn["coc#pum#visible"]() == 1 then
+            return vim.fn["coc#pum#prev"](1)
+          else
+            return "<S-Tab>"
+          end
+        end, { silent = true, expr = true })
         
         -- 补全设置
         vim.opt.completeopt = { "menu", "menuone", "noselect" }
