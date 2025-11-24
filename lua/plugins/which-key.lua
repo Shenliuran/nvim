@@ -1,10 +1,25 @@
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
+  preset= "helix",
   opts = {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
+    -- 在这里配置 which-key 的基础行为
+    icons = {
+      breadcrumb = "»", -- 用于导航的符号
+      separator = "➜",  -- 按键和描述之间的分隔符
+      group = "+",      -- 用于分组的符号
+    },
+    win = {
+      border = "rounded", -- 提示窗口的边框样式
+      width = 60,
+      height = 10,
+    },
+    trigger_prefix = "<leader>",
+    show_help = true,
+    show_keys = true,
+  },
+  presets = {
+    operators = true
   },
   keys = {
     {
