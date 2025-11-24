@@ -1,8 +1,11 @@
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
-  preset= "helix",
   opts = {
+    preset= "helix",
+    show_help = true,
+    show_keys = true,
+    trigger_prefix = "<leader>",
     -- 在这里配置 which-key 的基础行为
     icons = {
       breadcrumb = "»", -- 用于导航的符号
@@ -14,12 +17,6 @@ return {
       width = 60,
       height = 10,
     },
-    trigger_prefix = "<leader>",
-    show_help = true,
-    show_keys = true,
-  },
-  presets = {
-    operators = true
   },
   keys = {
     {
