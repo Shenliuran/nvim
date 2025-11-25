@@ -1,25 +1,50 @@
 return {
   "akinsho/bufferline.nvim",
   event = "VeryLazy",
-  -- 补充依赖：确保 bufdelete（关闭缓冲区）和 web-devicons（图标）存在
   dependencies = {
     "famiu/bufdelete.nvim",     -- 用于缓冲区关闭逻辑
     "nvim-tree/nvim-web-devicons", -- 提供文件类型图标
+    "lewis6991/gitsigns.nvim",  -- 关键：添加 gitsigns 依赖
   },
   keys = {
-    -- { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Pin" },
-    -- { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete Non-Pinned Buffers" },
-    -- { "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete Buffers to the Right" },
-    -- { "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete Buffers to the Left" },
-    { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-    { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-    -- { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-    -- { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-    -- { "[B", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer prev" },
-    -- { "]B", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer next" },
+    -- 切换到上一个/下一个缓冲区
+    { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
+    { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
+
+    -- 移动缓冲区位置
+    { "<A-h>", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer left" },
+    { "<A-l>", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer right" },
+
+    -- 关闭缓冲区
+    { "<leader>c", "<cmd>bdelete<CR>", desc = "Close buffer" },
+    { "<leader>C", "<cmd>BufferLineCloseOthers<cr>", desc = "Close other buffers" },
+
+    -- 选择特定位置的缓冲区 (1-9)
+    { "<leader>1", "<cmd>BufferLineGoToBuffer 1<cr>", desc = "Go to buffer 1" },
+    { "<leader>2", "<cmd>BufferLineGoToBuffer 2<cr>", desc = "Go to buffer 2" },
+    { "<leader>3", "<cmd>BufferLineGoToBuffer 3<cr>", desc = "Go to buffer 3" },
+    { "<leader>4", "<cmd>BufferLineGoToBuffer 4<cr>", desc = "Go to buffer 4" },
+    { "<leader>5", "<cmd>BufferLineGoToBuffer 5<cr>", desc = "Go to buffer 5" },
+    { "<leader>6", "<cmd>BufferLineGoToBuffer 6<cr>", desc = "Go to buffer 6" },
+    { "<leader>7", "<cmd>BufferLineGoToBuffer 7<cr>", desc = "Go to buffer 7" },
+    { "<leader>8", "<cmd>BufferLineGoToBuffer 8<cr>", desc = "Go to buffer 8" },
+    { "<leader>9", "<cmd>BufferLineGoToBuffer 9<cr>", desc = "Go to buffer 9" },
+
+    -- 切换到最近使用的缓冲区
+    { "<leader>`", "<cmd>BufferLineCyclePrev<cr>", desc = "Last buffer" },
   },
   opts = {
     options = {
+      indicator = {
+        style = "icon",
+        icon = "▎"
+      },
+      color_icons = true, -- 启用颜色图标
+      show_buffer_icons = true,
+      show_buffer_close_icons = true,
+      show_duplicate_prefix = true, -- 显示重复的缓冲全前缀
+      separator_style = "thin", -- 分隔符样式
+      
       -- 缓冲区关闭命令：依赖 bufdelete.nvim
       close_command = function(n) require("bufdelete").bufdelete(n, false) end,
       right_mouse_command = function(n) require("bufdelete").bufdelete(n, false) end,
@@ -28,7 +53,7 @@ return {
       always_show_bufferline = false,-- 无缓冲区时隐藏 bufferline
       diagnostics_update_in_insert = false,
       
-      -- 自定义诊断图标（替代原 LazyVim 依赖）
+      -- 修正：LSP 诊断图标逻辑
       diagnostics_indicator = function(_, _, diag)
         local icons = {
           Error = "❌ ",
@@ -41,7 +66,7 @@ return {
         return vim.trim(ret)
       end,
       
-      -- 侧边栏偏移（如 neo-tree、snacks 布局）
+      -- 侧边栏偏移
       offsets = {
         {
           filetype = "neo-tree",
@@ -49,35 +74,20 @@ return {
           highlight = "Directory",
           text_align = "left",
         },
-        {
-          filetype = "snacks_layout_box",
-        },
       },
-      
-      -- 完善图标获取逻辑：返回「图标 + 高亮组」（符合 bufferline 预期）
+
+      -- 完善图标获取逻辑
       get_element_icon = function(opts)
         local devicons = require("nvim-web-devicons")
         local icon, hl_group = devicons.get_icon_by_filetype(opts.filetype)
-        return icon or "?", hl_group -- 缺失时用 "?" + 默认高亮
+        return icon or "?", hl_group
       end,
     },
   },
-  config = function(_, opts)
-    -- 先配置 Neovim 原生诊断（替代原 bufferline 弃用选项）
-    vim.diagnostic.config({
-      update_in_insert = true, -- 插入模式下更新诊断
-    })
-    
-    -- 初始化 bufferline
-    require("bufferline").setup(opts)
-    
-    -- 自动命令：缓冲区增减时刷新 bufferline（防止数据异常）
-    vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
-      callback = function()
-        vim.schedule(function()
-          pcall(require("bufferline").setup, opts) -- pcall 防止错误中断流程
-        end)
-      end,
-    })
-  end,
+  highlights = {
+    -- 未选中缓冲区的指示器
+    BufferLineIndicator = { fg = "#44475a" },
+    -- 选中缓冲区的指示器（高亮）
+    BufferLineIndicatorSelected = { fg = "#a6e377", bold = true },
+  }
 }
