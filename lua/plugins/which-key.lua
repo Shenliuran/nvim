@@ -14,8 +14,10 @@ return {
     },
     win = {
       border = "rounded", -- 提示窗口的边框样式
-      width = 60,
-      height = 10,
+      title_pos = "center",
+      width = { min = 10, max = 60 },
+      height = { min = 4, max = 25 },
+
     },
   },
   keys = {
