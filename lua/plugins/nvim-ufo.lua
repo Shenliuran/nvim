@@ -1,6 +1,8 @@
 if not vim.g.vscode then
   return {
     'kevinhwang91/nvim-ufo',
+    -- 延迟加载：当文件被读取到buffer（BufReadPost）或新建文件（BufNewFile）时触发
+    event = {"BufNewFile", "BufReadPost"},
     dependencies = 'kevinhwang91/promise-async',
     config = function()
       local ufo = require('ufo')

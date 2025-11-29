@@ -1,6 +1,6 @@
 return {
   "akinsho/bufferline.nvim",
-  event = "VeryLazy",
+  event = { "BufReadPost", "BufNewFile" },
   dependencies = {
     "famiu/bufdelete.nvim",     -- 用于缓冲区关闭逻辑
     "nvim-tree/nvim-web-devicons", -- 提供文件类型图标

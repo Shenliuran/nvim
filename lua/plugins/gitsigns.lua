@@ -1,5 +1,6 @@
 return {
   "lewis6991/gitsigns.nvim",
+  event = { "BufReadPost", "BufNewFile" },
   opts = {
     -- 基础配置（同步骤 2，可复用）
     signs = {
