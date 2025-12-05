@@ -3,6 +3,7 @@ return {
   event = "VeryLazy",
   opts = {
     preset= "helix",
+    delay = 1000,
     show_help = true,
     show_keys = true,
     trigger_prefix = "<leader>",
