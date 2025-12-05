@@ -12,6 +12,7 @@ return {
     -- 1. 加载依赖（带错误处理，避免依赖缺失导致初始化失败）
     local status_devicons, devicons = pcall(require, "nvim-web-devicons")
     local status_telescope, telescope = pcall(require, "telescope.builtin")
+    local status_persistence, persistence = pcall(require, "persistence")
 
     -- 检查核心依赖是否加载成功
     if not status_devicons then
