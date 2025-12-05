@@ -75,6 +75,6 @@ return {
     })
 
     -- 激活主题
-    vim.cmd.colorscheme("catppuccin")
+    -- vim.cmd.colorscheme("catppuccin")
   end,
 }
