@@ -14,7 +14,6 @@ map('n', '<ESC>', '<cmd>nohlsearch<CR>', { desc = '清除搜索高亮' })
 if not vim.g.vscode then
   map('n', '<leader>v', ':vsp<CR>', { desc = '垂直分屏'})
   map('n', '<leader>h', ':sp<CR>', { desc = '水平分屏'})
-  map('n', '<leader>c', ':close<CR>', { desc = '关闭当前分屏'})
 
   -- flash.nvim插件快捷键（仅独立模式生效）
   map('n', 'S', function() require('flash').treesitter() end, { desc = 'Treesitter 跳转' })
