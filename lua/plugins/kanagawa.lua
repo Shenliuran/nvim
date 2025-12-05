@@ -8,48 +8,29 @@ return {
     config = function()
       -- 配置 kanagawa 选项
       require("kanagawa").setup({
-        -- 可选样式：wave（默认）、dragon、lotus
-        style = "dragon",
-        -- 透明背景（按需开启）
-        transparent = false,
-        -- 终端配色同步
-        terminalColors = true,
-        -- 禁用背景色（适合透明终端）
-        dimInactive = true,
-        dimInactivePercentage = 0.15,
-        -- 自定义颜色（示例）
-        colors = {
-          palette = {
-            -- 覆盖默认调色板颜色
-            sumiInk0 = "#16161D", -- 背景色
-            fujiWhite = "#DCD7BA", -- 前景色
-          },
-          theme = {
-            all = {
-              ui = {
-                bg_gutter = "none", -- 取消行号区背景
-              },
-            },
-          },
+        compile = true,             -- enable compiling the colorscheme
+        undercurl = true,            -- enable undercurls
+        commentStyle = { italic = true },
+        functionStyle = {},
+        keywordStyle = { italic = true},
+        statementStyle = { bold = true },
+        typeStyle = {},
+        transparent = false,         -- do not set background color
+        dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
+        terminalColors = true,       -- define vim.g.terminal_color_{0,17}
+        colors = {                   -- add/modify theme and palette colors
+            palette = {},
+            theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
         },
-        -- 自定义高亮组
-        overrides = function(colors)
-          local theme = colors.theme
-          return {
-            -- 普通文本高亮
-            Normal = { fg = colors.fujiWhite, bg = colors.sumiInk0 },
-            -- 注释颜色
-            Comment = { fg = colors.oniViolet, italic = true },
-            -- 折叠区域
-            Folded = { fg = colors.fujiGray, bg = "none", italic = true },
-            -- LazyVim 浮动窗口
-            FloatBorder = { fg = theme.ui.float.fg, bg = "none" },
-            NormalFloat = { bg = "none" },
-          }
+        overrides = function(colors) -- add/modify highlights
+            return {}
         end,
+        theme = "dragon",              -- Load "wave" theme
+        background = {               -- map the value of 'background' option to a theme
+            dark = "dragon",           -- try "dragon" !
+            light = "lotus"
+        },
       })
-
-      -- 设置默认配色
       vim.cmd.colorscheme("kanagawa")
     end,
   },
