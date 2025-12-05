@@ -1,6 +1,8 @@
 return {
   {
     "neoclide/coc.nvim",
+    -- 延迟加载：当文件被读取到buffer（BufReadPost）或新建文件（BufNewFile）时触发
+    event = {"BufNewFile", "BufReadPost"},
     branch = "release",
     enabled = not vim.g.vscode,
     -- 依赖配置（如果需要）

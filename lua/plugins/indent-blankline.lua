@@ -1,5 +1,7 @@
 return {
   "lukas-reineke/indent-blankline.nvim",
+  -- 延迟加载：当文件被读取到buffer（BufReadPost）或新建文件（BufNewFile）时触发
+  event = {"BufNewFile", "BufReadPost"},
   main = "ibl",
   ---@module "ibl"
   ---@type ibl.config

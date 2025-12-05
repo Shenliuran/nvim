@@ -1,6 +1,6 @@
 return {
   'folke/flash.nvim',
-  event = 'VeryLazy',
+  event = { "BufReadPost", "BufNewFile" },
   opts = {
     mode = 'inline',
     labels = 'asdfjklghnmzxcvb', -- 标签字符集
