@@ -22,8 +22,28 @@ return {
             palette = {},
             theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
         },
-        overrides = function(colors) -- add/modify highlights
-            return {}
+        -- 核心：覆盖 cmdline 相关高亮组
+        overrides = function(colors)
+          local palette = colors.palette -- kanagawa 内置调色板
+          return {
+            -- ============== Cmdline 各类型弹窗适配 ==============
+            -- 1. 命令型 Cmdline（输入 : 开头的命令）
+            NoiceCmdlinePopupNormal = { bg = palette.sumiInk1 },
+            NoiceCmdlinePopupBorder = { fg = palette.waveAqua, bg = palette.sumiInk0 },
+            NoiceCmdlinePopupTitle = { fg = palette.fujiWhite, bg = palette.sumiInk1 },
+            NoiceCmdlinePrompt = { fg = palette.springGreen, bg = palette.sumiInk1, bold = true }, -- 提示符（:）
+
+            -- 2. 搜索型 Cmdline（输入 / 或 ? 开头的搜索）
+            NoiceCmdlinePopupNormalSearch = { bg = palette.sumiInk1 },
+            NoiceCmdlinePopupBorderSearch = { fg = palette.carpYellow, bg = palette.sumiInk0 }, -- 解决你当前的边框异常
+            NoiceCmdlinePopupTitleSearch = { fg = palette.fujiWhite, bg = palette.sumiInk1 }, -- 搜索标题（Search）
+            NoiceCmdlinePromptSearch = { fg = palette.carpYellow, bg = palette.sumiInk1, bold = true }, -- 搜索提示符（/）
+
+            -- 5. 输入型 Cmdline（如 :input 提示输入）
+            NoiceCmdlinePopupNormalInput = { bg = palette.sumiInk1 },
+            NoiceCmdlinePopupBorderInput = { fg = palette.waveAqua, bg = palette.sumiInk0 },
+            NoiceCmdlinePopupTitleInput = { fg = palette.fujiWhite, bg = palette.sumiInk1 },
+          }
         end,
         theme = "dragon",              -- Load "wave" theme
         background = {               -- map the value of 'background' option to a theme
