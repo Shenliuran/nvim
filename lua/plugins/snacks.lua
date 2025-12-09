@@ -27,14 +27,14 @@ return {
     -- 2. 图标函数（保持逻辑，增强容错）
     local function get_dashboard_icon(func)
       local icon_map = {
-        files = (devicons.get_icon("add", nil, { default = true }) or "📂 "),
-        newfile = (devicons.get_icon("file", nil, { default = true }) or "➕ "),
-        search = (devicons.get_icon("search", nil, { default = true }) or "🔍" ),
-        history = (devicons.get_icon("history", nil, { default = true }) or "📜"),
-        config = (devicons.get_icon("config", nil, { default = true }) or "⚙️"),
-        session = (devicons.get_icon("session", nil, { default = true }) or "💬 "),
-        lazy = (devicons.get_icon("lazy", nil, { default = true }) or "💤 "),
-        quit = (devicons.get_icon("quit", nil, { default = true }) or "⭕" ),
+        files = "",
+        newfile = "",
+        search = "",
+        history = "",
+        config = "",
+        session = "",
+        lazy = "󰒲",
+        quit = "",
       }
       return icon_map[func] or "? "
     end
@@ -69,13 +69,13 @@ return {
 
           -- 快捷键配置（保持功能，增强可读性）
           keys = {
-            { icon = get_dashboard_icon("files"),    key = "f", desc = "Find File", action = function() telescope.find_files() end },
-            { icon = get_dashboard_icon("newfile"),  key = "n", desc = "New File", action = ":ene | startinsert" },
-            { icon = get_dashboard_icon("search"),   key = "g", desc = "Find Text", action = function() telescope.live_grep() end },
-            { icon = get_dashboard_icon("history"),  key = "r", desc = "Recent Files", action = function() telescope.oldfiles() end },
-            { icon = get_dashboard_icon("config"),   key = "c", desc = "Config", action = function() telescope.find_files({ cwd = vim.fn.stdpath("config") }) end },
+            { icon = "",    key = "f", desc = "Find File", action = function() telescope.find_files() end },
+            { icon = "",  key = "n", desc = "New File", action = ":ene | startinsert" },
+            { icon = "",   key = "g", desc = "Find Text", action = function() telescope.live_grep() end },
+            { icon = "",  key = "r", desc = "Recent Files", action = function() telescope.oldfiles() end },
+            { icon = "",   key = "c", desc = "Config", action = function() telescope.find_files({ cwd = vim.fn.stdpath("config") }) end },
             { 
-              icon = get_dashboard_icon("session"),  
+              icon = "",  
               key = "s", 
               desc = "Session", 
               -- 会话操作增强（判断persistence是否加载）
@@ -91,9 +91,9 @@ return {
                 end)
               end or function() vim.notify("会话依赖未加载", vim.log.levels.WARN) end
             },
-            { icon = get_dashboard_icon("lazy"),     key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
-            { icon = get_dashboard_icon("lazy"),     key = "l", desc = "Lazy", action = ":Lazy" },
-            { icon = get_dashboard_icon("quit"),     key = "q", desc = "Quit", action = ":qa" },
+            { icon = "",     key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
+            { icon = "󰒲",     key = "l", desc = "Lazy", action = ":Lazy" },
+            { icon = "",     key = "q", desc = "Quit", action = ":qa" },
           },
         },
       },
