@@ -11,20 +11,6 @@ return {
   end,
   opts = function()
     -- 移除LazyVim的require逻辑，使用标准require
-    local icons = {
-      diagnostics = {
-        Error = " ⛔",
-        Warn = " ❗ ",
-        Info = " 🔔 ",
-        Hint = " 📃 ",
-      },
-      git = {
-        added = " ➕ ",
-        modified = " ❓ ",
-        removed = " 🚫 ",
-      },
-    }
-
     vim.o.laststatus = vim.g.lualine_laststatus
 
     local opts = {
@@ -43,14 +29,12 @@ return {
             function()
               return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
             end,
-            icon = "",
-            separator = " ",
+            icon = "",
+            separator = ""
           },
           {
             "diagnostics",
-            symbols = icons.diagnostics,
           },
-          { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
           -- 替换LazyVim.pretty_path()为简化版本
           { "filename", path = 1 }, -- 1表示显示相对路径
         },
@@ -58,6 +42,7 @@ return {
           -- 移除Snacks.profiler.status()（如果没有该插件）
           -- 移除noice相关配置（如果没有该插件）
           -- 移除dap相关配置（如果没有该插件）
+          { "filetype", icon_only = true, separator = " ", padding = { left = 1, right = 0 } },
           {
             require("lazy.status").updates,
             cond = require("lazy.status").has_updates,
@@ -65,7 +50,6 @@ return {
           },
           {
             "diff",
-            symbols = icons.git,
             source = function()
               local gitsigns = vim.b.gitsigns_status_dict
               if gitsigns then
