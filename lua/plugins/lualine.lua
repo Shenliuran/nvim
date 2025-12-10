@@ -32,11 +32,9 @@ return {
             icon = "",
             separator = ""
           },
-          {
-            "diagnostics",
-          },
           -- 替换LazyVim.pretty_path()为简化版本
           { "filename", path = 1 }, -- 1表示显示相对路径
+          { "diagnostics", },
         },
         lualine_x = {
           -- 移除Snacks.profiler.status()（如果没有该插件）
