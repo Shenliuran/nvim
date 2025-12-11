@@ -51,7 +51,7 @@ return {
     },
     opts = {
       servers = {
-        luals = {
+        lua_ls = {
           cmd = { "lua-language-server" },
           root_markers = { ".luarc.json" },
           filetype = { "lua" },
@@ -63,13 +63,7 @@ return {
             }
           }
         },
-        pyright = {
-          settings = {
-            python = {
-              analysis = { typeCheckingMode = "basic", autoImportCompletions = true },
-            },
-          },
-        },
+        pyright = {},
         ts_ls = {}, -- 空配置则使用默认
       },
     },
