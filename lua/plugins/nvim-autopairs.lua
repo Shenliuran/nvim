@@ -25,10 +25,10 @@ return {
       },
     })
 
-    -- 与自动补全框架 nvim-cmp 集成（可选但推荐）
-    -- 当使用 cmp 选择补全项时，自动补全括号
-    local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-    local cmp = require("cmp")
-    cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+    vim.api.nvim_create_autocmd("InsertEnter", {
+      callback = function()
+        autopairs.enable()
+      end
+    })
   end,
 }

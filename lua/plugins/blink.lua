@@ -3,5 +3,16 @@ return {
   event = { 'BufReadPost', 'BufNewFile' },
   version = '1.*',
   dependencies = { 'xzbdmw/colorful-menu.nvim', opts = {} },
-  opts = {}
+  opts = {
+    completion = {
+      documentation = {
+        auto_show = true,
+        auto_show_delay_ms = 500,
+      },
+      trigger = { show_on_keyword = true }
+    },
+    appearance = {
+      use_nvim_cmp_as_default = false,
+    }
+  }
 }
