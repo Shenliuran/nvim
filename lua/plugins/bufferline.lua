@@ -56,10 +56,10 @@ return {
       -- 修正：LSP 诊断图标逻辑
       diagnostics_indicator = function(_, _, diag)
         local icons = {
-          Error = "❌ ",
-          Warn = "⚠️ ",
-          Info = "🔔 ",
-          Hint = "💡 ",
+          Error = " ",
+          Warn = " ",
+          Info = "󱁯 ",
+          Hint = " ",
         }
         local ret = (diag.error and icons.Error .. diag.error .. " " or "")
           .. (diag.warning and icons.Warn .. diag.warning or "")
