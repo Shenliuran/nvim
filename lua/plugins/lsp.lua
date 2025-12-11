@@ -51,7 +51,18 @@ return {
     },
     opts = {
       servers = {
-        lua_ls = {},
+        luals = {
+          cmd = { "lua-language-server" },
+          root_markers = { ".luarc.json" },
+          filetype = { "lua" },
+          settings = {
+            Lua = {
+              runtime = {
+                version ='LuaJIT'
+              }
+            }
+          }
+        },
         pyright = {
           settings = {
             python = {
@@ -63,32 +74,31 @@ return {
       },
     },
     config = function(_, opts)
-      local lspconfig = require('lspconfig')
-      -- local lspconfig = vim.lsp.config
-      local mason_lspconfig = require('mason-lspconfig')
-      
-      local on_attach = function(client, bufnr)
-        local map = vim.keymap.set
-        local opts = { noremap = true, silent = true, buffer = bufnr }
-        map("n", "gd", vim.lsp.buf.definition, opts)
-        map("n", "K", vim.lsp.buf.hover, opts)
-        map("n", "<leader>rn", vim.lsp.buf.rename, opts)
-        map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-        map("n", "<leader>d", vim.diagnostic.goto_next, opts)
+      local lspconfig = vim.lsp.config
+
+      local load_servers = function(server, config)
+        lspconfig[server] = {
+          cmd = config.cmd,
+          root_markers = config.root_markers,
+          filetype = config.filetype,
+          settings = config.settings
+        }
+        vim.lsp.enable(server)
       end
 
       for server, config in pairs(opts.servers) do
-        -- passing config.capabilities to blink.cmp merges with the capabilities in your
-        -- `opts( server ).capabilities, if you've defined it
-        config = vim.tbl_deep_extend("force", { on_attach = on_attach }, config)
-        config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
-        lspconfig[server].setup(config)
+        load_servers(server, config)
       end
 
-      vim.diagnostic.config({
-        float = { border = "rounded" },
-        severity_sort = true
+      vim.api.nvim_create_autocmd('LspAttach', {
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client:supports_method('testDocument/completion') then
+            vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+          end
+        end
       })
+      vim.cmd("set completeopt+=noselect")
     end,
   },
 }
