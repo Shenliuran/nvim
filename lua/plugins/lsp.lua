@@ -51,37 +51,16 @@ return {
     },
     opts = {
       servers = {
-        lua_ls = {
-          cmd = { "lua-language-server" },
-          root_markers = { ".luarc.json" },
-          filetype = { "lua" },
-          settings = {
-            Lua = {
-              runtime = {
-                version ='LuaJIT'
-              }
-            }
-          }
-        },
+        lua_ls = {},
         pyright = {},
-        ts_ls = {}, -- 空配置则使用默认
       },
     },
     config = function(_, opts)
       local lspconfig = vim.lsp.config
 
-      local load_servers = function(server, config)
-        lspconfig[server] = {
-          cmd = config.cmd,
-          root_markers = config.root_markers,
-          filetype = config.filetype,
-          settings = config.settings
-        }
-        vim.lsp.enable(server)
-      end
-
       for server, config in pairs(opts.servers) do
-        load_servers(server, config)
+        lspconfig[server] = config
+        vim.lsp.enable(server)
       end
 
       vim.api.nvim_create_autocmd('LspAttach', {
