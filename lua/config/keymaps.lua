@@ -15,6 +15,9 @@ if not vim.g.vscode then
   map('n', '<leader>v', ':vsp<CR>', { desc = '垂直分屏'})
   map('n', '<leader>h', ':sp<CR>', { desc = '水平分屏'})
 
+  map("n", "<leader>nl", function() require("noice").cmd("last") end, { desc = 'shows the last message in a popup' })
+  map("n", "<leader>nh", function()require("noice").cmd("history") end, { desc = 'shows the message history' })
+
   -- flash.nvim插件快捷键（仅独立模式生效）
   map('n', 'S', function() require('flash').treesitter() end, { desc = 'Treesitter 跳转' })
 else
