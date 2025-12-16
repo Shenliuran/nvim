@@ -64,3 +64,12 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- Makefile：强制使用 Tab（语言规范要求）
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "make",
+  callback = function()
+    vim.opt_local.shiftwidth = 4    -- 自动缩进 4 空格（但实际用 Tab 表示）
+    vim.opt_local.tabstop = 4       -- 一个 Tab 显示为 4 空格
+    vim.opt_local.expandtab = false -- 保留原生 Tab（Go 规范要求）
+  end,
+})
