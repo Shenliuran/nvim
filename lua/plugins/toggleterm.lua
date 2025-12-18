@@ -17,7 +17,6 @@ return {
       shell = vim.o.shell,
       float_opts = {
         border = "curved", -- 浮动窗口边框
-        winblend = 20,
       },
     })
   end,
