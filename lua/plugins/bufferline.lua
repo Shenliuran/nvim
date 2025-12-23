@@ -16,7 +16,7 @@ return {
     { "<A-l>", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer right" },
 
     -- 关闭缓冲区
-    { "<leader>c", "<cmd>bdelete<CR>", desc = "Close buffer" },
+    { "<leader>c", function() require("bufdelete").bufdelete(0, false) end, desc = "Close buffer" },
     { "<leader>C", "<cmd>BufferLineCloseOthers<cr>", desc = "Close other buffers" },
 
     -- 选择特定位置的缓冲区 (1-9)
