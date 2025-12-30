@@ -72,6 +72,7 @@ return {
             { icon = "",    key = "f", desc = "Find File", action = function() telescope.find_files() end },
             { icon = "",  key = "n", desc = "New File", action = ":ene | startinsert" },
             { icon = "",   key = "g", desc = "Find Text", action = function() telescope.live_grep() end },
+            { icon = "", key = "t", desc = "Find Todo", action = ":TodoTelescope"},
             { icon = "",  key = "r", desc = "Recent Files", action = function() telescope.oldfiles() end },
             { icon = "",   key = "c", desc = "Config", action = function() telescope.find_files({ cwd = vim.fn.stdpath("config") }) end },
             { 
