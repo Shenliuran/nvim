@@ -12,7 +12,7 @@ map('n', '<ESC>', '<cmd>nohlsearch<CR>', { desc = '清除搜索高亮' })
 
 -- 仅独立模式生效的快捷键（如分屏操作，VS Code用自身分屏）
 if not vim.g.vscode then
-  map('n', '<leader>v', ':vsp<CR>', { desc = '垂直分屏'})
+  -- map('n', '<leader>v', ':vsp<CR>', { desc = '垂直分屏'})
   map('n', '<leader>h', ':sp<CR>', { desc = '水平分屏'})
 
   map("n", "<leader>nl", function() require("noice").cmd("last") end, { desc = 'shows the last message in a popup' })
