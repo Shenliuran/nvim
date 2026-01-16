@@ -5,11 +5,17 @@ return {
   dependencies = { 'xzbdmw/colorful-menu.nvim', opts = {} },
   opts = {
     completion = {
+      menu = { border = 'rounded' },
       documentation = {
         auto_show = true,
         auto_show_delay_ms = 500,
+        window = { border = 'rounded' },
       },
-      trigger = { show_on_keyword = true }
+      signature = { window = { border = 'rounded' } },
+      trigger = {
+        show_on_keyword = true,
+        show_on_trigger_character = true
+      }
     },
     appearance = {
       use_nvim_cmp_as_default = false,
