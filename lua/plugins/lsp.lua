@@ -64,15 +64,15 @@ return {
         vim.lsp.enable(server)
       end
 
-      vim.api.nvim_create_autocmd('LspAttach', {
-        callback = function(args)
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if client:supports_method('testDocument/completion') then
-            vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-          end
-        end
-      })
-      vim.cmd("set completeopt+=noselect")
+      -- vim.api.nvim_create_autocmd('LspAttach', {
+      --   callback = function(args)
+      --     local client = vim.lsp.get_client_by_id(args.data.client_id)
+      --     if client:supports_method('testDocument/completion') then
+      --       vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+      --     end
+      --   end
+      -- })
+      -- vim.cmd("set completeopt+=noselect")
     end,
   },
 }
