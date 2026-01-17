@@ -38,7 +38,7 @@ return {
   },
   keys = {
     { 's', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end, desc = 'Flash 跳转' },
-    { 'S', mode = { 'n', 'x', 'o' }, function() require('flash').treesitter() end, desc = 'Treesitter 跳转' },
+    { 'S', mode = { 'n' }, function() require('flash').treesitter() end, desc = 'Treesitter 跳转' },
     { 'r', mode = 'o', function() require('flash').remote() end, desc = '远程 Flash 跳转' },
     { 'R', mode = { 'o', 'x' }, function() require('flash').treesitter_search() end, desc = 'Treesitter 搜索' },
   },
