@@ -73,3 +73,19 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.expandtab = false -- 保留原生 Tab（Go 规范要求）
   end,
 })
+
+
+-- 替代 :Explore（默认在当前窗口打开 oil）
+vim.api.nvim_create_user_command("Explore", function()
+  require("oil").open()
+end, { desc = "Open oil.nvim (replace native Explore)" })
+
+-- 替代 :Vexplore（垂直分屏打开 oil）
+vim.api.nvim_create_user_command("Vexplore", function()
+  require("oil").open({ win_options = { split = "vsplit" } })
+end, { desc = "Open oil.nvim in vertical split (replace native Vexplore)" })
+
+-- 替代 :Sexplore（水平分屏打开 oil）
+vim.api.nvim_create_user_command("Sexplore", function()
+  require("oil").open({ win_options = { split = "split" } })
+end, { desc = "Open oil.nvim in horizontal split (replace native Sexplore)" })
