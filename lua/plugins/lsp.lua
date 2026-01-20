@@ -54,6 +54,7 @@ return {
         lua_ls = {},
         ty = {},
         ts_ls = {},
+        marksman = {},
       },
     },
     config = function(_, opts)
