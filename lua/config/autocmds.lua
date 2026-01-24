@@ -23,7 +23,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- HTML/CSS/JS/TS：通常使用 2 空格缩进
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "html,css,scss,js,ts,json,xml",
+  pattern = "html,css,scss,js,ts,json,xml,yml,yaml",
   callback = function()
     vim.opt_local.shiftwidth = 2
     vim.opt_local.tabstop = 2
