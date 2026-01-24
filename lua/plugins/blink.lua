@@ -11,7 +11,6 @@ return {
         auto_show_delay_ms = 500,
         window = { border = 'rounded' },
       },
-      signature = { window = { border = 'rounded' } },
       trigger = {
         show_on_keyword = true,
         show_on_trigger_character = true
