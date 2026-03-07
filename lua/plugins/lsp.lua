@@ -46,7 +46,7 @@ return {
     "neovim/nvim-lspconfig",
     enabled = true,
     dependencies = {
-      'saghen/blink.cmp',
+      'hrsh7th/cmp-nvim-lsp',
       'mason-org/mason-lspconfig.nvim'
     },
     opts = {
