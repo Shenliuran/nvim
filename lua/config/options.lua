@@ -1,6 +1,7 @@
 ------------------------------------------------- line number -------------------------------------------------
 -- 定义模式切换时的行号行为
 local number_toggle = vim.api.nvim_create_augroup('NumberToggle', { clear = true })
+vim.g.is_kitty = vim.env.KITTY_WINDOW_ID ~= nil
 
 -- 进入插入模式时：关闭相对行号，仅保留绝对行号
 vim.api.nvim_create_autocmd('InsertEnter', {
