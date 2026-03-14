@@ -20,6 +20,23 @@ if not vim.g.vscode then
 
   -- flash.nvim插件快捷键（仅独立模式生效）
   map('n', 'S', function() require('flash').treesitter() end, { desc = 'Treesitter 跳转' })
+
+  map('n', '<leader>rs', function() require("telescope.builtin").oldfiles() end, { desc = 'Recent File' })
+  map('n','<leader>sn',
+    function()
+      local persistence = require("persistence")
+      vim.ui.select({ "保存会话", "恢复上次会话" }, { prompt = "会话操作" }, function(choice)
+        if choice == "保存会话" then
+          persistence.save()
+          vim.notify("会话已保存")
+        elseif choice == "恢复上次会话" then
+          persistence.load()
+          vim.notify("已恢复上次会话")
+        end
+      end)
+    end or function() vim.notify("会话依赖未加载", vim.log.levels.WARN) end,
+    { desc = 'Session' })
+
 else
   map('n', '<leader>v', function() vim.fn.VSCodeNotify('workbench.action.splitEditorRight') end, { desc = '垂直分屏'})
   map('n', '<leader>h', function() vim.fn.VSCodeNotify('workbench.action.splitEditorDown') end, { desc = '水平分屏'})
