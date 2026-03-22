@@ -2,6 +2,7 @@ return {
   "folke/snacks.nvim",
   -- 调整加载时机：确保依赖加载后再初始化
   event = "VeryLazy",
+  enabled = not vim.g.is_kitty,
   dependencies = {
     "nvim-tree/nvim-web-devicons",      -- 图标依赖
     "nvim-telescope/telescope.nvim",    -- 搜索依赖
